@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F6E1;</text></svg>">
 
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-B3X5H4KJ11"></script>
   <script>
@@ -29,6 +33,24 @@
       campaign_medium: 'referral',
       campaign_name: 'hcfoods_referral'
     });
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script>
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/placeholder";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script");
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "What does referred by HC Foods get me?", "acceptedAnswer": {"@type": "Answer", "text": "HC Foods partners receive special pricing on all Aleph plans. Sign up through this page and partner pricing is applied automatically."}},
+      {"@type": "Question", "name": "I only import food products. Do I need all four modules?", "acceptedAnswer": {"@type": "Answer", "text": "All modules are included in every plan. Most food importers start with FSVP and discover they also need Prop 65 or PFAS tracking."}},
+      {"@type": "Question", "name": "How long does it take to get started?", "acceptedAnswer": {"@type": "Answer", "text": "Most importers are fully set up within 1-2 days."}},
+      {"@type": "Question", "name": "Can I try it before committing?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Create a free account to explore the platform. No credit card required."}}
+    ]
+  }
   </script>
 
   <style>
@@ -112,13 +134,35 @@
       font-size: .6875rem; font-weight: 600; text-transform: uppercase;
       letter-spacing: .06em; color: var(--fg-subtle); text-align: center;
     }
-    .hcfoods-hero-logo { margin-bottom: 1.5rem; }
+    .hcfoods-hero-logo { margin-bottom: 2rem; }
     .hcfoods-hero-logo img {
-      height: 70px; width: auto; object-fit: contain;
+      height: 140px; width: auto; object-fit: contain;
+    }
+    .case-study-logo {
+      width: 4.5rem; height: 4.5rem; border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
     }
     .case-study-logo img {
       width: 100%; height: 100%; object-fit: contain; border-radius: var(--radius);
     }
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+      background: var(--primary); color: var(--primary-fg);
+      padding: .625rem 1rem; text-align: center;
+      transform: translateY(100%); transition: transform .3s ease;
+      box-shadow: 0 -2px 8px rgba(0,0,0,.15);
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta .container {
+      display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .sticky-cta p { color: var(--primary-fg); font-size: .875rem; font-weight: 500; margin: 0; }
+    .sticky-cta .btn {
+      background: var(--primary-fg); color: var(--primary);
+      font-weight: 700; padding: .5rem 1.25rem; font-size: .8125rem;
+    }
+    .sticky-cta .btn:hover { opacity: .9; }
   </style>
 </head>
 <body>
@@ -145,10 +189,7 @@
           <li><a href="#platform">Platform</a></li>
         </ul>
         <div class="nav-actions">
-          <button class="theme-toggle" aria-label="Toggle theme">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </button>
-          <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-primary btn-sm" data-track="nav-signup">Get Started</a>
+          <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-primary btn-sm" data-track="nav-signup">Start Free</a>
         </div>
       </div>
     </div>
@@ -158,16 +199,16 @@
   <section class="hero" style="padding-top: calc(var(--nav-h) + 6rem);">
     <div class="container">
       <div class="hcfoods-hero-logo">
-        <img src="img/hcfoods.png" alt="HC Foods" />
+        <img src="img/hcfoods.png" alt="HC Foods" width="140" height="140" />
       </div>
       <div class="referral-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
         Recommended by HC Foods
       </div>
-      <h1>The compliance platform HC Foods trusts &mdash; now available to their partners.</h1>
-      <p>HC Foods streamlined their entire product compliance workflow with Aleph. They&rsquo;re recommending it to partners and clients who want the same results.</p>
+      <h1>HC Foods cut compliance costs 73%. You can too.</h1>
+      <p>HC Foods eliminated $45K in annual consultant fees and cut compliance admin by 73% with Aleph. They&rsquo;re recommending it to every importer they work with.</p>
       <div class="hero-actions">
-        <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-primary btn-lg" data-track="hero-signup">Get Started with Partner Pricing</a>
+        <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-primary btn-lg" data-track="hero-signup">Start My Free Trial &mdash; Partner Pricing</a>
         <a href="#case-study" class="btn btn-outline btn-lg">See the Case Study</a>
       </div>
     </div>
@@ -446,7 +487,7 @@
         </div>
         <h2>Join HC Foods and hundreds of importers on Aleph</h2>
         <p>Create your account in 2 minutes. No credit card required. Partner pricing applied automatically.</p>
-        <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-lg" data-track="bottom-signup">Get Started with Partner Pricing</a>
+        <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-lg" data-track="bottom-signup">Start My Free Trial &mdash; Partner Pricing</a>
       </div>
     </div>
   </section>
@@ -457,7 +498,7 @@
       <div class="partner-logos">
         <div>
           <div class="logo-label">Referred by</div>
-          <img src="img/hcfoods.png" alt="HC Foods" style="height: 50px;" />
+          <img src="img/hcfoods.png" alt="HC Foods" style="height: 70px;" width="70" height="70" loading="lazy" />
         </div>
         <div class="logo-divider"></div>
         <div>
@@ -524,6 +565,14 @@
       </div>
     </div>
   </footer>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta" id="sticky-cta">
+    <div class="container">
+      <p>HC Foods partner pricing &mdash; <strong>start free today</strong></p>
+      <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn" data-track="sticky-signup">Start My Free Trial</a>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
