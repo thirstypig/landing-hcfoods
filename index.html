@@ -79,6 +79,7 @@
         <ul class="nav-links">
           <li><a href="#case-study">Case Study</a></li>
           <li><a href="#savings">Savings</a></li>
+          <li><a href="#roi-calculator">Calculator</a></li>
           <li><a href="#platform">Platform</a></li>
         </ul>
         <div class="nav-actions">
@@ -355,6 +356,69 @@
     <div class="container">
       <p class="mid-cta-headline">Ready to go from chaos to confidence?</p>
       <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-red btn-lg" data-track="mid-cta-3">Start My Free Trial &mdash; Partner Pricing</a>
+    </div>
+  </section>
+
+  <!-- ROI Calculator -->
+  <section class="section section-alt" id="roi-calculator">
+    <div class="container" style="max-width: 860px;">
+      <div class="section-heading text-center">
+        <span class="section-label">&middot; ROI Calculator &middot;</span>
+        <h2>Estimate your savings with Aleph</h2>
+        <p>Adjust the sliders to match your operation. See what HC Foods-level savings look like for your business.</p>
+      </div>
+
+      <div class="calc-wrapper">
+        <!-- Inputs -->
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label class="calc-label" for="calc-skus">Number of Products (SKUs)</label>
+            <div class="calc-slider-row">
+              <input type="range" id="calc-skus" class="calc-range" min="1" max="500" value="25" step="1" />
+              <output class="calc-output" for="calc-skus" id="calc-skus-val">25</output>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label" for="calc-spend">Current Annual Compliance Spend</label>
+            <div class="calc-slider-row">
+              <input type="range" id="calc-spend" class="calc-range" min="5000" max="500000" value="45000" step="1000" />
+              <output class="calc-output" for="calc-spend" id="calc-spend-val">$45,000</output>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label" for="calc-hours">Hours per Week on Compliance Admin</label>
+            <div class="calc-slider-row">
+              <input type="range" id="calc-hours" class="calc-range" min="1" max="40" value="15" step="1" />
+              <output class="calc-output" for="calc-hours" id="calc-hours-val">15 hrs</output>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="calc-results">
+          <div class="calc-result-grid">
+            <div class="calc-result-card">
+              <div class="calc-result-number" id="calc-savings">$32,850</div>
+              <div class="calc-result-label">Estimated Annual Savings</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="calc-result-number" id="calc-hours-saved">546 hrs</div>
+              <div class="calc-result-label">Hours Saved per Year</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="calc-result-number" id="calc-cost-per-sku">$5/mo</div>
+              <div class="calc-result-label">Cost per SKU with Aleph</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="calc-result-number" id="calc-payback">&lt; 1 mo</div>
+              <div class="calc-result-label">Payback Period</div>
+            </div>
+          </div>
+          <div class="calc-cta">
+            <a href="https://app.alephco.io/register?ref=hcfoods&utm_source=hcfoods&utm_medium=referral&utm_campaign=hcfoods_partner" class="btn btn-red btn-lg" data-track="calc-signup">Start My Free Trial &mdash; Partner Pricing</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

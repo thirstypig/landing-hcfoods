@@ -105,6 +105,139 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { passive: true });
 
+  // ── ROI Calculator ─────────────────────────────────────
+  const calcSkus = document.getElementById('calc-skus');
+  const calcSpend = document.getElementById('calc-spend');
+  const calcHours = document.getElementById('calc-hours');
+
+  if (calcSkus && calcSpend && calcHours) {
+    const calcSkusVal = document.getElementById('calc-skus-val');
+    const calcSpendVal = document.getElementById('calc-spend-val');
+    const calcHoursVal = document.getElementById('calc-hours-val');
+    const resultSavings = document.getElementById('calc-savings');
+    const resultHoursSaved = document.getElementById('calc-hours-saved');
+    const resultCostPerSku = document.getElementById('calc-cost-per-sku');
+    const resultPayback = document.getElementById('calc-payback');
+
+    function getCostPerSku(skus) {
+      // Volume-based pricing: more SKUs = lower per-SKU cost
+      if (skus <= 10) return 9;
+      if (skus <= 50) return 7;
+      if (skus <= 100) return 6;
+      if (skus <= 200) return 5;
+      if (skus <= 350) return 4;
+      return 3;
+    }
+
+    function formatDollars(n) {
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    // Animate a result number element
+    let activeAnimations = {};
+    function animateResult(el, newText) {
+      // Cancel any running animation on this element
+      if (activeAnimations[el.id]) {
+        cancelAnimationFrame(activeAnimations[el.id]);
+      }
+
+      const oldText = el.textContent;
+      // Try to parse numeric values for smooth animation
+      const oldMatch = oldText.match(/^\$?([\d,]+)/);
+      const newMatch = newText.match(/^\$?([\d,]+)/);
+
+      if (oldMatch && newMatch) {
+        const oldNum = parseInt(oldMatch[1].replace(/,/g, ''), 10);
+        const newNum = parseInt(newMatch[1].replace(/,/g, ''), 10);
+        const prefix = newText.startsWith('$') ? '$' : '';
+        const suffix = newText.replace(/^\$?[\d,]+/, '');
+        const duration = 400;
+        const start = performance.now();
+
+        el.classList.add('animating');
+
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          const current = Math.round(oldNum + (newNum - oldNum) * eased);
+          el.textContent = prefix + current.toLocaleString() + suffix;
+          if (progress < 1) {
+            activeAnimations[el.id] = requestAnimationFrame(step);
+          } else {
+            el.textContent = newText;
+            el.classList.remove('animating');
+            delete activeAnimations[el.id];
+          }
+        }
+        activeAnimations[el.id] = requestAnimationFrame(step);
+      } else {
+        el.textContent = newText;
+      }
+    }
+
+    function updateCalculator() {
+      const skus = parseInt(calcSkus.value, 10);
+      const spend = parseInt(calcSpend.value, 10);
+      const hours = parseInt(calcHours.value, 10);
+
+      // Update slider labels
+      calcSkusVal.textContent = skus;
+      calcSpendVal.textContent = formatDollars(spend);
+      calcHoursVal.textContent = hours + ' hrs';
+
+      // Calculations
+      const savingsRate = 0.73;
+      const hourReductionRate = 0.70;
+      const costPerSku = getCostPerSku(skus);
+      const annualAlephCost = skus * costPerSku * 12;
+      const annualSavings = Math.max(0, (spend * savingsRate) - annualAlephCost);
+      const hoursSavedPerWeek = hours * hourReductionRate;
+      const hoursSavedPerYear = Math.round(hoursSavedPerWeek * 52);
+
+      // Payback period: months until Aleph cost is recouped by savings
+      const monthlySavings = (spend * savingsRate) / 12;
+      const monthlyAlephCost = skus * costPerSku;
+      let paybackText;
+      if (monthlySavings <= 0 || monthlySavings <= monthlyAlephCost) {
+        paybackText = 'N/A';
+      } else {
+        const paybackMonths = monthlyAlephCost / (monthlySavings - monthlyAlephCost);
+        if (paybackMonths < 1) {
+          paybackText = '< 1 mo';
+        } else {
+          paybackText = Math.ceil(paybackMonths) + ' mo';
+        }
+      }
+
+      // Animate results
+      animateResult(resultSavings, formatDollars(annualSavings));
+      animateResult(resultHoursSaved, hoursSavedPerYear.toLocaleString() + ' hrs');
+      animateResult(resultCostPerSku, '$' + costPerSku + '/mo');
+      resultPayback.textContent = paybackText;
+
+      // Track calculator engagement (debounced via the input event)
+      if (typeof gtag === 'function') {
+        clearTimeout(window._calcTrackTimeout);
+        window._calcTrackTimeout = setTimeout(() => {
+          gtag('event', 'calculator_interact', {
+            landing_page: 'hcfoods_referral',
+            calc_skus: skus,
+            calc_spend: spend,
+            calc_hours: hours
+          });
+        }, 1500);
+      }
+    }
+
+    // Bind events
+    [calcSkus, calcSpend, calcHours].forEach(slider => {
+      slider.addEventListener('input', updateCalculator);
+    });
+
+    // Initial calculation
+    updateCalculator();
+  }
+
   // Localhost detection
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     document.querySelectorAll('a[href*="app.alephco.io"]').forEach(a => {
