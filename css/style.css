@@ -654,3 +654,73 @@ p { color: var(--dim); }
 
 /* Section alternating bg helper */
 .section-alt { background: var(--panel); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+
+/* ── Mobile-first responsive fixes ─────────────────────── */
+@media (max-width: 480px) {
+  /* Announce bar — smaller on phones */
+  .announce {
+    font-size: .5rem;
+    letter-spacing: 0.08em;
+    padding: .375rem .5rem;
+    line-height: 1.4;
+  }
+
+  /* Hero — tighter on phones */
+  .hero {
+    padding: calc(var(--nav-h) + 3rem) 0 2.5rem;
+  }
+  .hero h1 { font-size: 1.625rem; }
+  .hero p { font-size: .9375rem; margin-bottom: 1.25rem; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; text-align: center; }
+  .hcfoods-hero-logo img { height: 100px; }
+  .referral-badge {
+    font-size: 9px;
+    padding: .375rem .75rem;
+    letter-spacing: .1em;
+  }
+
+  /* Nav */
+  .nav-logo img { height: 24px; }
+
+  /* Sections — tighter vertical padding */
+  .section { padding: 3rem 0; }
+  .section-sm { padding: 2rem 0; }
+  .container { padding: 0 1rem; }
+
+  /* Section headings */
+  .section-heading { margin-bottom: 2rem; }
+  h2 { font-size: 1.375rem; }
+
+  /* Cards — less padding */
+  .card { padding: 1.25rem; }
+
+  /* Stats — single column on small phones */
+  .stat-grid { grid-template-columns: 1fr !important; }
+  .stat-number { font-size: 2rem; }
+
+  /* Mid-CTAs — full width buttons */
+  .mid-cta .btn { width: 100%; }
+
+  /* CTA banner */
+  .cta-banner { padding: 2.5rem 1.25rem; }
+  .cta-banner .btn { width: 100%; }
+
+  /* Sticky CTA — compact */
+  .sticky-cta { padding: .5rem .75rem; }
+  .sticky-cta p { font-size: .5625rem; letter-spacing: 0.1em; }
+  .sticky-cta .btn { font-size: 9px; padding: .375rem 1rem; }
+
+  /* Case study */
+  .case-study-grid { gap: 1rem; }
+
+  /* Checklist */
+  .checklist li { font-size: .875rem; }
+
+  /* Steps */
+  .step { gap: 1rem; padding: 1rem 0; }
+  .step-number { width: 2rem; height: 2rem; font-size: .875rem; }
+
+  /* Footer — tighter */
+  .footer { padding-top: 2.5rem; }
+}
